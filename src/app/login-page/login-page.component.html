@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <form name="form" #f="ngForm" (ngSubmit)="onSubmit()">
+      <div class="inputs-field" *ngIf="!show">
+        <label for=""></label>
+        
+          <label for="name"> Nome </label>
+          <input [(ngModel)]="form.name" type="text" class="form-control mx-2 " name="name">
+
+          <label for="surname"> Cognome </label>
+          <input [(ngModel)]="form.surname" type="text" class="form-control mx-2 " name="surname">
+
+          <label for="email"> Email </label>
+          <input [(ngModel)]="form.email" type="text" class="form-control mx-2 " name="email">
+
+          <label for="username"> Username <b class="text-danger" *ngIf="loginError">* Questo campo è obbligatorio</b></label>
+          <input [(ngModel)]="form.username" type="text" class="form-control mx-2 " name="username" required>
+       
+          <label for="password"> Password <b class="text-danger" *ngIf="loginError">* Questo campo è obbligatorio</b></label>
+          <input [(ngModel)]="form.password" type="password" class="form-control mx-2 " name="password" required>
+      </div>
+      <div class="inputs-field" *ngIf="!show">
+        <button type="submit" class="btn btn-outline-custom">INVIA</button>
+      </div>
+    </form>
+</div>
+
