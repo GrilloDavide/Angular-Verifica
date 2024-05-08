@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <form name="form" #f="ngForm" (ngSubmit)="onSubmit()">
+    <form name="form" #f="ngForm">
       <div class="inputs-field" *ngIf="!show">
         <label for=""></label>
         
@@ -12,15 +12,20 @@
           <label for="email"> Email </label>
           <input [(ngModel)]="form.email" type="text" class="form-control mx-2 " name="email">
 
-          <label for="username"> Username <b class="text-danger" *ngIf="loginError">* Questo campo è obbligatorio</b></label>
+          <label for="username"> Username <b class="text-danger" *ngIf="usernameError">* Questo campo è obbligatorio</b></label>
           <input [(ngModel)]="form.username" type="text" class="form-control mx-2 " name="username" required>
        
-          <label for="password"> Password <b class="text-danger" *ngIf="loginError">* Questo campo è obbligatorio</b></label>
+          <label for="password"> Password <b class="text-danger" *ngIf="passwordError">* Questo campo è obbligatorio</b></label>
           <input [(ngModel)]="form.password" type="password" class="form-control mx-2 " name="password" required>
       </div>
       <div class="inputs-field" *ngIf="!show">
-        <button type="submit" class="btn btn-outline-custom">INVIA</button>
+        <button type="submit" (click)="loginAttempt()" class="btn btn-outline-custom">Login</button>
+        <button type="submit" (click)="registerAttempt()" class="btn btn-outline-custom">Registra</button>
       </div>
+      <!--<label *ngIf="loginSuccess">
+        Sei loggato!
+      </label>
+      <div class="text-warning" *ngIf="loginError">Errore: account non presente: registrati</div>-->
     </form>
 </div>
 

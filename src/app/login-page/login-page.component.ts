@@ -26,7 +26,10 @@ export class LoginPageComponent {
   constructor(private loginService : LoginServiceService) {}
 
   show : boolean = false
+  usernameError : boolean = false
+  passwordError : boolean = false
   loginError : boolean = false
+  loginSuccess : boolean = false
 
   form = {
     name : "",
@@ -37,26 +40,51 @@ export class LoginPageComponent {
   }
 
    isFormValid(){
-    if (this.form.username == "" || this.form.password == "") {
-      this.loginError = true
+
+    if(this.form.username == "" || this.form.password == ""){
+      if (this.form.username == "") {
+        this.usernameError = true
+        
+      } 
+      if (this.form.password == ""){
+        this.passwordError = true
+      }
+
       return false
     }
     else
-      this.loginError = false
+      this.usernameError = false
+      this.passwordError = false
     return true
   }
 
   loginAttempt() {
-
+    this.clearChecks()
     if(this.isFormValid())
-      this.loginService.login(this.form.name, this.form.surname, this.form.email, this.form.username, this.form.password)
+      this.loginService.login(this.form.name, this.form.surname, this.form.email, this.form.username, this.form.password).subscribe(res => {
 
-    
+        console.log(res)
+        if(res.valid)
+          this.loginSuccess = true
+        else
+          this.loginError = true
+      });
   }
 
-  registerAttempt(){
+  registerAttempt() {
+    this.clearChecks()
     if(this.isFormValid())
-      this.loginService.register(this.form.name, this.form.surname, this.form.email, this.form.username, this.form.password)
+      this.loginService.register(this.form.name, this.form.surname, this.form.email, this.form.username, this.form.password).subscribe(res => {
+
+        console.log(res)
+      });
+  }
+
+  clearChecks(){
+    this.loginError = false
+    this.loginSuccess = false
+    this.usernameError = false
+    this.passwordError = false
   }
 
   onSubmit(){
